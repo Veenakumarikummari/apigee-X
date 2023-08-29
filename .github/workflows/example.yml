@@ -1,5 +1,5 @@
+---
 name: Apigee X
-
 on:
   workflow_dispatch:
     inputs:
@@ -13,41 +13,43 @@ on:
         type: choice
         description: Make a choice
         options:
-        - Dev
-        - Test
-        - Uat
+          - Dev
+          - Test
+          - Uat
   schedule:
-        - cron: '30 5 * * 1,3' 
-        
-run-name: ${{ github.actor }} is testing out GitHub Actions   
+    - cron: '30 18 * * 1,3'
+run-name: ${{ github.actor }} is testing out GitHub Actions
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-
       - name: greet
-        run: | 
-          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
+        run: >
+          echo "environment is ${{ github.event.inputs.environment }} / ${{
+          inputs.environment }}"
+
           echo "boolean is ${{ github.event.inputs.boolean }}" / ${{ inputs.boolean }} 
+
           echo "choice is ${{ github.event.inputs.choice }}" / ${{ inputs.choice }}
   test_schedule:
     runs-on: ubuntu-latest
     steps:
       - name: Not on Monday or Wednesday
-        if: github.event.schedule != '30 5 * * 1,3'
-        run: echo "This step will be skipped on Monday and Wednesday"
+        if: github.event.schedule != '30 18 * * 1,3'
+        run: echo "This step will be run on Monday,tuesday and Wednesday"
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo " This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo " This job is now running on a ${{ runner.os }} server hosted by
+          GitHub!"
+      - run: echo "The name of your branch is ${{ github.ref }} and your repository is
+          ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: echo " The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo " The ${{ github.repository }} repository has been cloned to the
+          runner."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
       - run: echo " This job's status is ${{ job.status }}."
-      
