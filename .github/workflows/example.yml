@@ -13,9 +13,9 @@ on:
         type: choice
         description: Make a choice
         options:
-        - foo
-        - bar
-        - baz
+        - Dev
+        - Test
+        - Uat
 jobs:
   build:
     runs-on: ubuntu-latest
