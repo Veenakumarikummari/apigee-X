@@ -17,7 +17,8 @@ on:
         - Test
         - Uat
   schedule:
-      - cron: '30 18 * * 1,2,3'
+        - cron: '30 5 * * 1,3' 
+        
 run-name: ${{ github.actor }} is testing out GitHub Actions   
 jobs:
   build:
@@ -35,8 +36,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Not on Monday or Wednesday
-        if: github.event.schedule != '30 18 * * 1,3'
-        run: echo "This step will be run on Monday,tuesday and Wednesday"
+        if: github.event.schedule != '30 5 * * 1,3'
+        run: echo "This step will be skipped on Monday and Wednesday"
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
